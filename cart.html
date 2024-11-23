@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    header {
+      background-color: #232f3e;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+    .back-link {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      background-color: #ffa41c;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    .cart-item h3 {
+      margin: 0;
+    }
+    .cart-item span {
+      font-weight: bold;
+      color: #ffa41c;
+    }
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 20px;
+    }
+    footer {
+      background-color: #232f3e;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Your Cart</h1>
+    <a href="index.html" class="back-link">Back to Menu</a>
+  </header>
+
+  <div class="container">
+    <div id="cart-items"></div>
+    <div class="total" id="total-price"></div>
+  </div>
+
+  <footer>
+    © 2024 College Canteen. All rights reserved.
+  </footer>
+
+  <script>
+    // Fetch cart from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalPriceContainer = document.getElementById('total-price');
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<p>Your cart is empty!</p>';
+    } else {
+      let total = 0;
+      cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+          <h3>${item.name}</h3>
+          <span>₹${item.price}</span>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+        total += item.price;
+      });
+      totalPriceContainer.textContent = `Total: ₹${total}`;
+    }
+  </script>
+</body>
+</html>
